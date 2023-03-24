@@ -271,10 +271,6 @@ int A()
 }
 
 
-enum STATE {
-    OK, BAD_INIT, BAD_DIV
-};
-
 class ComplexVector
 {
     ComplexDouble* v;
