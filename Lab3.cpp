@@ -294,7 +294,7 @@ typedef complex <double> ComplexDouble;
 
 class ComplexVector
 {
-    ComplexDouble* v;
+    ComplexDouble* v,e;
     int num;   // default num=2
     int state = 0;
 public:
