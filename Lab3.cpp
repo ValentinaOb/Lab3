@@ -179,11 +179,10 @@ public:
 
 int A()
 {
-
     Icosahedron obj;
     obj.printInfo();
     int in_a, in_b, in_c;
-    cout << " Input a, b, c Icosahedron "; cin >> in_a >> in_b >> in_c;
+    cout << " Input a Icosahedron "; cin >> in_a >> in_b >> in_c;
     Icosahedron obj1(in_a), obj2(in_b), obj3(in_c);
     obj1.printInfo();
     obj2.printInfo();
