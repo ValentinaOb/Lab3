@@ -290,9 +290,8 @@ int A()
 
 
 
-typedef complex <double> ComplexDouble;
-#define _RE 0
-#define _IM 1
+typedef double ComplexDouble;
+
 
 enum STATE {
     OK, BAD_INIT, BAD_DIV
@@ -315,9 +314,8 @@ public:
         if (v) delete[] v;
     }
 
-    ComplexVector(int n, int a); // функцію, яка присвоює елементу масиву деяке значення (параметр за замовчуванням)
-    ComplexVector El(ComplexVector& b);
-    ComplexVector Pos(ComplexVector& b); // функцію яка одержує деякий елемент масиву
+    int El(ComplexVector& b); // функцію, яка присвоює елементу масиву деяке значення (параметр за замовчуванням)
+    int Pos(ComplexVector& b); // функцію яка одержує деякий елемент масиву
 
     ComplexVector Subtr(ComplexVector& b); // віднімння
     ComplexVector Mult(ComplexVector& b); // множення
@@ -383,26 +381,9 @@ ComplexVector& ComplexVector::operator=(const ComplexVector& s) {
 }
 
 
-ComplexVector::ComplexVector(int n, int a) {
-    a = 1; // параметр за замовчуванням
-
-    cout << "V: ";
-    for (int i = 0; i < n; i++) {
-        cout << v[i] << " ";
-    }
-
-    cout << "Input position of element: ";
-    int p;
-    cin >> p;
-
-    v = new ComplexDouble[n];
-    for (int i = 0; i < n; i++) {
-        if (i == p) v[i] = a;
-    }
-}
 
 
-ComplexVector ComplexVector::El(ComplexVector& b) {
+int ComplexVector::El(ComplexVector& b) {
     int tnum;
     tnum = num < b.num ? num : b.num;
 
@@ -422,14 +403,15 @@ ComplexVector ComplexVector::El(ComplexVector& b) {
     if (tnum >= 0){
         for (int i = 0; i < tnum; i++) {
             if (i == p) v[i] = a;
+            return v[i];
         }
     }
 
-    return ComplexVector(1);
+    return 0;
 }
 
 
-ComplexVector ComplexVector::Pos(ComplexVector& b) {
+int ComplexVector::Pos(ComplexVector& b) {
     int tnum;
     tnum = num < b.num ? num : b.num;
 
@@ -445,9 +427,9 @@ ComplexVector ComplexVector::Pos(ComplexVector& b) {
             e = v[i];
         }
     }
-        return tmp;
+        return e;
     }
-    return ComplexVector(1);
+    return 0;
 }
 
 ComplexVector ComplexVector::Subtr(ComplexVector& b) {
@@ -461,8 +443,6 @@ ComplexVector ComplexVector::Subtr(ComplexVector& b) {
     return ComplexVector(0);
 }
 
-
-/*
 ComplexVector ComplexVector::Mult(ComplexVector& b) {
     int tnum;
     short s;
@@ -482,7 +462,7 @@ ComplexVector ComplexVector::Mult(ComplexVector& b) {
 
     return ComplexVector(0);
 }
-*/
+
 
 bool ComplexVector::Less(ComplexVector& s) {
 
@@ -516,7 +496,7 @@ void ComplexVector::Input() {
     for (int i = 0; i < num; i++) {
 
 #if defined(_MSC_VER)
-        cout << " v [ " << i << " ] real img  "; cin >> v[i] >> v[i]._Val[_IM];
+        cout << " v [ " << i << " ] real img  "; cin >> v[i];
 #else 
         double re, im;
         cout << " v [ " << i << " ] real img  "; cin >> re >> im;
@@ -551,11 +531,11 @@ ComplexVector ComplexVector::Add(ComplexVector& b) {
 
 int B()
 {
-    ComplexDouble a(1.0, 2), b, c;
+    ComplexDouble a(2), b, c; // a(1.0, 2)
     cout << a << endl;
 #if defined(_MSC_VER)
-    b._Val[_RE] = 21.3;
-    b._Val[_IM] = 22.3;
+    b = 21.3;
+    b = 22.3;
 #else 
     b.real(21.3);
     b.imag(22.3);
@@ -573,7 +553,7 @@ int B()
     cout << " Input a " << endl;
 
 #if defined(_MSC_VER)
-    cin >> a >> a._Val[_IM];
+    cin >> a;
 #else 
     double re, im;
     cin >> re >> im;
@@ -595,8 +575,7 @@ int B()
     cout << "\n";
 
     cout << "\nPoss \n";
-    VecObj1 = VecObj.Pos(VecObj2);
-    VecObj1.Output();
+    ComplexVector::El(& b);
     cout << "\n";
 
 
@@ -616,25 +595,8 @@ int B()
     cout << endl;
 
 
-
-    cout << "\nLess \n";
-    VecObj1 = VecObj.Less(VecObj2);
-    VecObj1.Output();
-    cout << endl;
-
-    cout << "\nMore \n";
-    VecObj1 = VecObj.More(VecObj2);
-    VecObj1.Output();
-    cout << endl;
-
-    cout << "\nEqual \n";
-    VecObj1 = VecObj.Equal(VecObj2);
-    VecObj1.Output();
-    cout << endl;
-
-
     // !!!
-    cout << "\n\n2 Less \n";
+    cout << "\nLess \n";
 
     if (VecObj.Less(VecObj2) == 1) {
         cout << "true";
@@ -643,7 +605,7 @@ int B()
     cout << "\n";
 
 
-    cout << "\n\n2 More \n";
+    cout << "\nMore \n";
 
     if (VecObj.More(VecObj2) == 1) {
         cout << "true";
@@ -652,7 +614,7 @@ int B()
     cout << "\n";
 
 
-    cout << "\n\n2 Equal \n";
+    cout << "\nEqual \n";
 
     if (VecObj.Equal(VecObj2) == 1) {
         cout << "true";
