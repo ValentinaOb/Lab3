@@ -338,9 +338,6 @@ ComplexVector::ComplexVector(int n) {
         v[i] = 0.0;
         //v[i]._Val[_RE]=0.0; v[i]._Val[_IM]=0.0;  
     }
-
-    cout << "\n\n\n!!! !!! !!! n\n" << num; // !!!!!!!!!!!!!!!!!!!!!!!
-
 }
 ComplexVector::ComplexVector(int n, ComplexDouble& b) : ComplexVector(n) {
     for (int i = 0; i < num; i++) {
@@ -374,8 +371,6 @@ ComplexVector& ComplexVector::operator=(const ComplexVector& s) {
         state = 0;
     }
     for (int i = 0; i < num; i++)   v[i] = s.v[i];
-
-    cout << "\n\n\n!!! !!! !!! sn\n" << s.num << "\n\n"; // !!!!!!!!!!!!!!!!!!!!!!!
 
     return *this;
 }
@@ -415,7 +410,7 @@ int ComplexVector::Pos(ComplexVector& b) {
     int tnum;
     tnum = num < b.num ? num : b.num;
 
-    cout << "Input position: ";
+    cout << "\nInput position: ";
     int p;
     cin >> p;
 
@@ -531,7 +526,7 @@ ComplexVector ComplexVector::Add(ComplexVector& b) {
 
 int B()
 {
-    ComplexDouble a(2), b, c; // a(1.0, 2)
+    ComplexDouble a(1), b, c; // a(1.0, 2)
     cout << a << endl;
 #if defined(_MSC_VER)
     b = 21.3;
@@ -575,7 +570,7 @@ int B()
     cout << "\n";
 
     cout << "\nPoss \n";
-    ComplexVector::El(VecObj1);
+    El(VecObj1);
     cout << "\n";
 
 
