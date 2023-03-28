@@ -575,7 +575,7 @@ int B()
     cout << "\n";
 
     cout << "\nPoss \n";
-    ComplexVector::El(& b);
+    ComplexVector::El(VecObj1);
     cout << "\n";
 
 
