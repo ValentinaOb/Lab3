@@ -300,6 +300,7 @@ enum STATE {
 class ComplexVector
 {
     ComplexDouble* v;
+    ComplexVector* q;
     int num;   // default num=2
     int state = 0;
 public:
@@ -309,10 +310,6 @@ public:
     ComplexVector(int n, ComplexDouble*);
     ComplexVector(const ComplexVector& s);
     ComplexVector& operator=(const ComplexVector& s);
-    ~ComplexVector() {
-        std::cout << " del vec";
-        if (v) delete[] v;
-    }
 
     int El(ComplexVector& b); // функцію, яка присвоює елементу масиву деяке значення (параметр за замовчуванням)
     int Pos(ComplexVector& b); // функцію яка одержує деякий елемент масиву
@@ -326,8 +323,6 @@ public:
     void Output();
     void Input();
     ComplexVector Add(ComplexVector& b);
-
-
 };
 
 ComplexVector::ComplexVector(int n) {
@@ -391,16 +386,15 @@ int ComplexVector::El(ComplexVector& b) {
         }
     }
 
-    cout << "Input position of element: ";
+    cout << "\nInput position of element: ";
     int p;
     cin >> p;
 
-    if (tnum >= 0){
         for (int i = 0; i < tnum; i++) {
             if (i == p) v[i] = a;
             return v[i];
         }
-    }
+    
 
     return 0;
 }
@@ -410,21 +404,22 @@ int ComplexVector::Pos(ComplexVector& b) {
     int tnum;
     tnum = num < b.num ? num : b.num;
 
-    cout << "\nInput position: ";
     int p;
+    cout << "\nInput position: ";
     cin >> p;
 
     ComplexDouble e;
     if (tnum >= 0) {
-        ComplexVector tmp(tnum);
         for (int i = 0; i < tnum; i++) {
         if (i == p) {
             e = v[i];
         }
-    }
         return e;
+        cout << "Element: " << e;
     }
-    return 0;
+        return 0;
+    }
+
 }
 
 ComplexVector ComplexVector::Subtr(ComplexVector& b) {
@@ -442,19 +437,17 @@ ComplexVector ComplexVector::Mult(ComplexVector& b) {
     int tnum;
     short s;
     tnum = num < b.num ? num : b.num;
-    ComplexVector* q = nullptr;
-    v = new ComplexDouble[tnum];
 
     cout << "Input Multiplier: ";
     cin >> s;
 
     if (tnum >= 0) {
         for (int i = 0; i < tnum; i++) {
-            q[i] = v[i] * s;
-            return q[i];
+            v[i] = v[i] * s;
+            return tnum;
         }
     }
-
+    cout << "\n";
     return ComplexVector(0);
 }
 
@@ -498,8 +491,6 @@ void ComplexVector::Input() {
         v[i].real(re);
         v[i].imag(im);
 #endif		
-
-
     }
 }
 
@@ -563,22 +554,21 @@ int B()
     cout << endl;
     VecObj.Output();
 
-
+    
     cout << "\nEl \n";
-    VecObj1 = VecObj.El(VecObj2);
-    VecObj1.Output();
+    ComplexVector El();
     cout << "\n";
 
     cout << "\nPoss \n";
-    El(VecObj1);
+    ComplexVector Poss();
     cout << "\n";
 
 
-    cout << "\nAdd \n";
+    cout << "\nAdd \n"; // +
     VecObj1 = VecObj.Add(VecObj2);
     VecObj1.Output();
 
-    cout << "\nSubtr \n";
+    cout << "\nSubtr \n"; // +
     VecObj1 = VecObj.Subtr(VecObj2);
     VecObj1.Output();
     cout << endl;
@@ -590,8 +580,7 @@ int B()
     cout << endl;
 
 
-    // !!!
-    cout << "\nLess \n";
+    cout << "\nLess \n"; // +
 
     if (VecObj.Less(VecObj2) == 1) {
         cout << "true";
@@ -600,7 +589,7 @@ int B()
     cout << "\n";
 
 
-    cout << "\nMore \n";
+    cout << "\nMore \n"; // +
 
     if (VecObj.More(VecObj2) == 1) {
         cout << "true";
@@ -609,7 +598,7 @@ int B()
     cout << "\n";
 
 
-    cout << "\nEqual \n";
+    cout << "\nEqual \n"; // +
 
     if (VecObj.Equal(VecObj2) == 1) {
         cout << "true";
