@@ -300,7 +300,6 @@ enum STATE {
 class ComplexVector
 {
     ComplexDouble* v;
-    ComplexDouble err = -1;
     int num; 
     int state = 0;
 public:
@@ -373,8 +372,6 @@ ComplexVector& ComplexVector::operator=(const ComplexVector& s) {
 }
 
 
-
-
 double& ComplexVector::El(int  index) {
  //   if (index >= 0 && index < num) return v[index];
    // return err;
@@ -399,7 +396,6 @@ double& ComplexVector::El(int  index) {
         return e;
 
 }
-
 
 double& ComplexVector::Poss(double& b) {
 
@@ -635,7 +631,6 @@ typedef double ComplexDouble1;
 class ComplexVector1
 {
     ComplexDouble** v;
-    ComplexDouble err = -1;
     int num;  
     int state = 0;
 public:
