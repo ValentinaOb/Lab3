@@ -630,7 +630,7 @@ typedef double ComplexDouble1;
 
 class ComplexVector1
 {
-    ComplexDouble** v;
+    ComplexDouble1** v;
     int num;  
     int state = 0;
 public:
@@ -700,7 +700,7 @@ ComplexVector1& ComplexVector1::operator=(const ComplexVector1& s) {
 }
 
 
-double& ComplexVector1::El(int  index) {
+double& ComplexVector1::El(int index) {
 
     int p, p1;
     cout << "\nInput position: ";
@@ -712,7 +712,7 @@ double& ComplexVector1::El(int  index) {
     }
     cout << "\n";
 
-    ComplexDouble e;
+    ComplexDouble1 e;
     for (int i = 0; i < num; i++) for (int j = 0; j < num; j++) {
 
         if ((i == p)&&(j==p1)) {
