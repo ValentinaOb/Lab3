@@ -660,6 +660,8 @@ public:
 ComplexVector1::ComplexVector1(int n) {
     if (n <= 0)    n = 2;  
     num = n;
+    v = new ComplexDouble * [n]; //
+    v[0] = new ComplexDouble [n]; //
     for (int i = 0; i < n; i++) for (int j = 0; j < n; j++) {
         v[i][j] = 0;
     }
@@ -683,6 +685,8 @@ ComplexVector1::ComplexVector1(int n, ComplexDouble1* p) : ComplexVector1(n) {
 ComplexVector1::ComplexVector1(const ComplexVector1& s) {
     num = s.num;
     state = 0;
+    v = new ComplexDouble * [num]; //
+    v[0] = new ComplexDouble[num]; //
     for (int i = 0; i < num; i++) for (int j = 0; j < num; j++) v[i][j] = s.v[i][j];
 }
 
@@ -690,8 +694,10 @@ ComplexVector1& ComplexVector1::operator=(const ComplexVector1& s) {
 
     if (num != s.num)
     {
-        if (v) delete[] v;
+        if (v) { delete[] v[0]; delete[] v; }
         num = s.num;
+        v = new ComplexDouble * [num]; //
+        v[0] = new ComplexDouble[num]; //
         state = 0;
     }
     for (int i = 0; i < num; i++) for (int j = 0; j < num; j++)  v[i][j] = s.v[i][j];
@@ -809,7 +815,9 @@ void ComplexVector1::Input1() {
     } while (in_num <= 0);
     if (num != in_num) {
         num = in_num;
-        if (v) delete[] v;
+        if (v) { delete[] v[0]; delete[] v; }
+        v = new ComplexDouble * [num]; //
+        v[0] = new ComplexDouble[num]; //
     }
     for (int i = 0; i < num; i++) for (int j = 0; j < num; j++) {
 
