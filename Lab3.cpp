@@ -468,13 +468,11 @@ bool ComplexVector::Less(ComplexVector& s) {
 
     return (num < s.num); // якщо виконується умова, вертаємться true, інакше false 
 }
-
 bool ComplexVector::More(ComplexVector& s) {
 
     if (num > s.num) return true;
     return false;
 }
-
 bool ComplexVector::Equal(ComplexVector& s) {
 
     if (num == s.num) return true;
@@ -483,7 +481,6 @@ bool ComplexVector::Equal(ComplexVector& s) {
 
 
 bool ComplexVector::Less1(ComplexVector& s) {
-    cout << "\n";
     for (int i = 0; i < num; i++)
     {
         cout << v[i] << " ";
@@ -495,41 +492,36 @@ bool ComplexVector::Less1(ComplexVector& s) {
     }
     cout << "\n";
     num = s.num;
-    if (s.v < v) { return true; }
+    int q = 0, q1 = 0;
+    for (int i = 0; i < num; i++)
+    {
+        q += s.v[i];
+        q1 += v[i];
+    }
+    if (q < q1) { return true; }
     return false;
 }
-
 bool ComplexVector::More1(ComplexVector& s) {
-
-    for (int i = 0; i < num; i++)
-    {
-        cout << v[i] << " ";
-    }
-    cout << "\n";
-    for (int i = 0; i < num; i++)
-    {
-        cout << s.v[i] << " ";
-    }
-    cout << "\n";
     num = s.num;
-    if (s.v > v) { return true; }
+    int q = 0, q1 = 0;
+    for (int i = 0; i < num; i++)
+    {
+        q += s.v[i];
+        q1 += v[i];
+    }
+    if (q > q1) { return true; }
     return false;
 }
-
 bool ComplexVector::Equal1(ComplexVector& s) {
-
-    for (int i = 0; i < num; i++)
-    {
-        cout << v[i] << " ";
-    }
-    cout << "\n";
-    for (int i = 0; i < num; i++)
-    {
-        cout << s.v[i] << " ";
-    }
-    cout << "\n";
     num = s.num;
-    if (s.v == v) { return true; }
+    int q=0, q1=0;
+    for (int i = 0; i < num; i++)
+    {
+        q += s.v[i];
+        q1 += v[i];    
+    }
+    if (q == q1) { return true; }
+    
     return 0;
 }
 
@@ -638,7 +630,6 @@ int B()
     VecObj1.Output();
     cout << endl;
 
-
     cout << "\Mult \n"; 
     VecObj1 = VecObj.Mult(5);
     VecObj1.Output();
@@ -672,7 +663,7 @@ int B()
     cout << "\n";
 
 
-    cout << "\nLess1 \n";
+    cout << "\n\nLess1\n";
 
     if (VecObj.Less1(VecObj2) == 1) {
         cout << "true";
@@ -708,7 +699,6 @@ int B()
 
 
  
-
 typedef double ComplexDouble1;
 
 
@@ -735,6 +725,9 @@ public:
     bool More(ComplexVector1& s); 
     bool Less(ComplexVector1& s); 
     bool Equal(ComplexVector1& s);
+    bool More1(ComplexVector1& s);
+    bool Less1(ComplexVector1& s);
+    bool Equal1(ComplexVector1& s);
 
     void Output1();
     void Input1();
@@ -904,6 +897,51 @@ bool ComplexVector1::Equal(ComplexVector1& s) {
     return false;
 }
 
+bool ComplexVector1::Less1(ComplexVector1& s) {
+    for (int i = 0; i < num; i++)
+    {
+        cout << v[i] << " ";
+    }
+    cout << "\n";
+    for (int i = 0; i < num; i++)
+    {
+        cout << s.v[i] << " ";
+    }
+    cout << "\n";
+    num = s.num;
+    int q = 0, q1 = 0;
+    for (int i = 0; i < num; i++) for (int j = 0; j < num; j++)
+    {
+        q += s.v[i][j];
+        q1 += v[i][j];
+    }
+    if (q < q1) { return true; }
+    return false;
+}
+bool ComplexVector1::More1(ComplexVector1& s) {
+    num = s.num;
+    int q = 0, q1 = 0;
+    for (int i = 0; i < num; i++) for (int j = 0; j < num; j++)
+    {
+        q += s.v[i][j];
+        q1 += v[i][j];
+    }
+    if (q > q1) { return true; }
+    return false;
+}
+bool ComplexVector1::Equal1(ComplexVector1& s) {
+    num = s.num;
+    int q = 0, q1 = 0;
+    for (int i = 0; i < num; i++) for (int j = 0; j < num; j++)
+    {
+        q += s.v[i][j];
+        q1 += v[i][j];
+    }
+    if (q == q1) { return true; }
+
+    return 0;
+}
+
 
 void ComplexVector1::Input1() {
     int rows = 0, cols = 0;
@@ -976,7 +1014,7 @@ ComplexVector1 ComplexVector1::Add(ComplexVector1& b) {
 
 int C()
 {
-    ComplexDouble1 a(1), b, c; 
+    ComplexDouble1 a(1),b,c; 
     cout << a << endl;
 #if defined(_MSC_VER)
     b = 21.3;
@@ -989,23 +1027,14 @@ int C()
     cout << b << endl;
     c = a + b;
     cout << c << endl;
+
     cout << " Test  " << endl;
-    cout << "\n!!!";
-    ComplexVector1 VecObj2, VecObj3(5,5);
+    ComplexVector1 VecObj2, VecObj3(5,5); 
     cout << "VecObj \n";
     VecObj2.Output1();
     cout << "VecObj1 \n";
     VecObj3.Output1();
-    cout << " Input a " << endl;
-
-#if defined(_MSC_VER)
-    cin >> a;
-#else 
-    double re, im;
-    cin >> re >> im;
-    a.real(re);
-    a.imag(im);
-#endif    
+    cout << " Input a " << endl;   
 
     cout << a << endl;
     ComplexVector1 VecObj4(10, a);
